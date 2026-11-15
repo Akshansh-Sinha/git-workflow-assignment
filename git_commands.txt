@@ -1,0 +1,99 @@
+GIT COMMANDS USED - Git & GitHub Workflow Assignment
+Listed in the order they were executed.
+====================================================
+
+1. LOCAL REPOSITORY SETUP
+-------------------------
+git init -b main
+    Creates a new Git repository in the project folder and names the first branch "main".
+git status
+    Shows the working tree state; here both HTML files appear as untracked.
+
+2. INITIAL AND SECOND COMMIT
+----------------------------
+git add index.html about.html
+    Stages both HTML files so they are included in the next commit.
+git commit -m "Initial commit: add index.html and about.html"
+    Saves the staged files as the first snapshot in the repository history.
+git add about.html
+    Stages the modified about.html.
+git commit -m "Update about.html with a timestamp line"
+    Records the change to about.html as the second commit.
+
+3. FEATURE BRANCH
+-----------------
+git branch feature
+    Creates a new branch called "feature" pointing at the current commit.
+git branch
+    Lists local branches; the asterisk marks the current branch.
+git checkout feature
+    Switches the working directory to the "feature" branch.
+git branch --show-current
+    Prints the name of the current branch to confirm the switch.
+git add index.html
+    Stages the change made to index.html on the feature branch.
+git commit -m "Add tagline to index.html on feature branch"
+    Commits the change on "feature" only; main is not affected yet.
+
+4. RETURN TO MAIN AND MERGE
+---------------------------
+git checkout main
+    Switches back to the main branch.
+git branch --show-current
+    Confirms that main is now the current branch.
+git merge --no-ff feature -m "Merge feature branch into main"
+    Merges "feature" into main. --no-ff forces a merge commit so the merge is visible in history.
+git log --oneline --graph --all --decorate
+    Shows the full history as a graph with short commit IDs, messages, branch names and the merge.
+
+5. .GITIGNORE
+-------------
+git status
+    Run after creating .gitignore, debug.log and temp/; debug.log and temp/ do not appear.
+git add .gitignore
+    Stages the .gitignore file.
+git commit -m "Add .gitignore to exclude .log files and temp/ directory"
+    Commits the ignore rules so they apply for everyone who clones the repository.
+git status --ignored
+    Lists ignored files separately, confirming debug.log and temp/ are ignored.
+
+6. UNDO OPERATION
+-----------------
+git add index.html
+    Stages a new line added to index.html.
+git commit -m "Add a line to index.html that will be reverted"
+    Commits the change that will be undone.
+git revert HEAD --no-edit
+    Creates a new commit that reverses the latest commit, keeping the original in history.
+git log --oneline -5
+    Shows the last five commits, including both the original commit and its revert.
+
+7. GITHUB INTEGRATION
+---------------------
+git remote add origin https://github.com/Akshansh-Sinha/git-workflow-assignment.git
+    Links the local repository to the empty public GitHub repository under the name "origin".
+git remote -v
+    Displays the fetch and push URLs for "origin" to confirm the link.
+git push -u origin main
+    Uploads main and its full history to GitHub and sets origin/main as its upstream.
+git push origin feature
+    Uploads the feature branch to GitHub.
+
+Note: the remote/push block was accidentally pasted a second time. "git remote add"
+returned "remote origin already exists" and both pushes reported "Everything up-to-date";
+nothing changed.
+
+8. FINAL VERIFICATION AND DOCUMENTATION
+---------------------------------------
+git branch -a
+    Lists local and remote-tracking branches to confirm both branches exist on GitHub.
+git add git_commands.txt
+    Stages this documentation file.
+git commit -m "Add git_commands.txt documenting all Git commands used"
+    Commits this file to the repository.
+git push
+    Pushes the new commit to GitHub (upstream was set earlier with -u).
+git log --oneline --graph --all --decorate
+    Shows the final complete history after all steps.
+git status
+    Confirms the working tree is clean and in sync with origin/main.
